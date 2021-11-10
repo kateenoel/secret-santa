@@ -3,8 +3,6 @@
 #' Facilitate secret santa gift exchange with user input of participant names and email addresses
 #' @param sender_email Email address from which the secret santa assignments will be communicated
 #' @param sender_pwd Password to above email address
-#' @examples
-#' secretsanta("santa@gmail.com", "mypassword")
 #' @export
 secretsanta <- function(sender_email, sender_pwd) {
   # determine number of participants
