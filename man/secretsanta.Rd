@@ -15,5 +15,5 @@ secretsanta(sender_email, sender_pwd)
 Facilitate secret santa gift exchange with user input of participant names and email addresses
 }
 \examples{
-example1
+secretsanta("santa@gmail.com", "mypassword")
 }
