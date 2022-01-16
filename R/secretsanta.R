@@ -40,11 +40,11 @@ secretsanta <- function(sender_email, sender_pwd) {
   }
 
   # randomly assign secret santas until no one is their own secret santa
-  santa <- names
-  santee <- sample(santa)
+  santa_sentinel <- 1:num_santas
+  santee_sentinel <- sample(santa_sentinel)
 
-  while (any(santa == santee)) {
-    santee <- sample(santa)
+  while (any(santa_sentinel == santee_sentinel)) {
+    santee_sentinel <- sample(santa_sentinel)
   }
 
   # prepare variables for email
@@ -58,10 +58,17 @@ secretsanta <- function(sender_email, sender_pwd) {
 
   # unique to recipient
   for (i in 1:num_santas) {
-    recipient <- emails[i]
-    text <- paste("hi ", santa[i], ', your secret santee is ', santee[i], ".", ' in other words, you are the secret santa of ', santee[i], ". have fun!", sep="")
+    santa <- people[[santa_sentinel[i]]]
+    santee <- people[[santee_sentinel[i]]]
+    text <- paste("hi ", santa["name"], ', your secret santee is ', santee["name"], ". ",
+                  "in other words, you are the secret santa of ", santee["name"], ". \n",
+                  santee["name"], "'s shipping address is: ", santee["address"], ". \n\n",
+                  "a little elf mentioned that ", santee["name"], " likes: ", santee["want"], ". ",
+                  "and they absolutely do not want: ", santee["notwant"], ".",
+                  "\n\nhave fun!"
+                  , sep="")
     send.mail(from = sender,
-              to = recipient,
+              to = santa["email"],
               subject = subj,
               body = text,
               html = T,
